@@ -637,7 +637,9 @@ AG_GST_CHECK_FEATURE(X, [X libraries and plugins],
   ac_cppflags_save="$CPPFLAGS"
   CFLAGS="$CFLAGS $X_CFLAGS"
   CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-  AC_CHECK_HEADER(X11/Xlib.h, HAVE_X="yes", HAVE_X="no")
+  HAVE_X="yes"
+  AC_CHECK_HEADER(X11/Xlib.h, [], HAVE_X="no")
+  AC_CHECK_LIB(X11, XOpenDisplay, [], HAVE_X="no", $X_LIBS $X_PRE_LIBS $X_EXTRA_LIBS)
 
   if test "x$HAVE_X" = "xno"
   then
